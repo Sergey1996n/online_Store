@@ -12,6 +12,7 @@ defmodule Online_StoreWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug ProperCase.Plug.SnakeCaseParams
   end
 
   scope "/", Online_StoreWeb do
@@ -52,5 +53,11 @@ defmodule Online_StoreWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  scope "/api/v1", Online_StoreWeb.V1 do
+    pipe_through :api
+
+    resources "/products", ProductController, only: [:index, :show]
   end
 end

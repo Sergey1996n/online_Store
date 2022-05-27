@@ -24,6 +24,7 @@ defmodule Online_Store.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Online_Store.DataCase
+      import Online_Store.Factories
     end
   end
 

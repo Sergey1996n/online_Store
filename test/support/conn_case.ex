@@ -23,6 +23,8 @@ defmodule Online_StoreWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import Online_StoreWeb.ConnCase
+      import Online_Store.DataCase
+      import Online_Store.Factories
 
       alias Online_StoreWeb.Router.Helpers, as: Routes
 

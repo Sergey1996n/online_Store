@@ -23,6 +23,8 @@ defmodule Online_StoreWeb do
 
       import Plug.Conn
       import Online_StoreWeb.Gettext
+
+      alias Plug.Conn
       alias Online_StoreWeb.Router.Helpers, as: Routes
     end
   end
