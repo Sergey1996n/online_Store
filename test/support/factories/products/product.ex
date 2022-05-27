@@ -17,7 +17,6 @@ defmodule Online_Store.Factories.Products.ProductFactory do
           category: category,
           category_id: category.id
         }
-        |> IO.inspect()
       end
     end
   end
