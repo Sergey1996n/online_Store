@@ -3,6 +3,11 @@ defmodule Online_Store.Accounts.Entities.User do
 
   import Ecto.Changeset
 
+  alias Online_Store.{
+    Wishlists.Entities.Wishlist,
+    # Repo
+  }
+
   schema "users" do
     field :phone_number, :string
     field :email, :string
@@ -13,11 +18,14 @@ defmodule Online_Store.Accounts.Entities.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    has_one :wishlist, Wishlist
+
     timestamps()
   end
 
   def create_changeset(%__MODULE__{} = user, attrs) do
     user
+    # |> Repo.preload(:product)
     |> cast(attrs, [:phone_number, :email, :name, :surname, :nickname, :birthday])
     # Спросить за :nickname
     |> validate_required([:phone_number, :birthday])
@@ -34,11 +42,13 @@ defmodule Online_Store.Accounts.Entities.User do
       message: "invalid_format"
     )
     # |> put_password_hash()
+    |> assoc_constraint(:wishlist)
     # Уточнить за ограничения :birthday
   end
 
   def update_changeset(%__MODULE__{} = user, attrs) do
     user
+    # |> Repo.preload(:product)
     |>cast(attrs, [:phone_number, :email, :name, :surname, :nickname, :birthday])
     |> validate_required([:phone_number, :birthday])
     |> validate_format(:phone_number, ~r/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
@@ -54,6 +64,7 @@ defmodule Online_Store.Accounts.Entities.User do
       message: "invalid_format"
     )
     # |> put_password_hash()
+    |> assoc_constraint(:wishlist)
   end
 
   # defp put_password_hash(%{valid?: true, changes: %{password: password}} = changeset) do

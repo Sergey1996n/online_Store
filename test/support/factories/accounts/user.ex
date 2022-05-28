@@ -18,7 +18,6 @@ defmodule Online_Store.Factories.Accounts.UserFactory do
           phone_number: phone_number,
           birthday: birthday
         }
-        
       end
     end
   end

@@ -3,7 +3,7 @@ defmodule Online_Store.Categories.Entities.Category do
 
   import Ecto.Changeset
 
-  alias Online_Store.Repo
+  # alias Online_Store.Repo
   alias Online_Store.Products.Entities.Product
 
   @requires [

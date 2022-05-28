@@ -4,8 +4,6 @@ defmodule Online_Store.Products.Commands.CreateProduct do
     Products.Entities.Product
   }
 
-  @spec process(:invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}) ::
-          any
   def process(attrs) do
     %Product{}
     |> Product.create_changeset(attrs)

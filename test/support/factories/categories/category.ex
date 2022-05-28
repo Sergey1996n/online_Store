@@ -7,7 +7,7 @@ defmodule Online_Store.Factories.Categories.CategoryFactory do
       def category_factory(attrs) do
         title = Map.get(attrs, :title, Lorem.word())
         %Category{
-          title: title,
+          title: sequence(:title, &"#{&1}_#{title}"),
         }
       end
     end

@@ -4,7 +4,7 @@ defmodule Online_Store.Factories do
   use Online_Store.Factories.{
     Accounts.UserFactory,
     Categories.CategoryFactory,
-    Products.ProductFactory
-  #   Items.ItemFactory
+    Products.ProductFactory,
+    Wishlists.WishlistFactory
   }
 end

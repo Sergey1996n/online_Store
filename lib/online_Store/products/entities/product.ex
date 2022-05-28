@@ -5,7 +5,8 @@ defmodule Online_Store.Products.Entities.Product do
 
   alias Online_Store.{
     Categories.Entities.Category,
-    # Repo
+    Wishlists.Entities.Wishlist,
+    Repo
   }
   # alias Online_Store.Repo
 
@@ -23,24 +24,29 @@ defmodule Online_Store.Products.Entities.Product do
 
     belongs_to :category, Category
 
+    many_to_many :wishlists, Wishlist, join_through: "wishlists_products"
+    # many_to_many :users, User, join_through: "basket"
+
     timestamps()
   end
 
   def create_changeset(%__MODULE__{} = product, attrs) do
     product
-    # |> Repo.preload(:categories)
-    |> cast(attrs, @required)
+    |> Repo.preload(:wishlists)
+    |> cast(attrs, @required)  |> IO.inspect()
     |> validate_required(@required)
     |> unique_constraint(:title, message: "taken")
     |> assoc_constraint(:category)
+    |> put_assoc(:wishlists, [attrs.wishlists])
   end
 
   def update_changeset(%__MODULE__{} = product, attrs) do
     product
-    # |> Repo.preload(:categories)
+    |> Repo.preload(:wishlists)
     |> cast(attrs, @required)
     |> validate_required(@required)
     |> unique_constraint(:title, message: "taken")
     |> assoc_constraint(:category)
+    |> put_assoc(:wishlists, [attrs.wishlists])
   end
 end
