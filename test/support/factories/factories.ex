@@ -5,6 +5,7 @@ defmodule Online_Store.Factories do
     Accounts.UserFactory,
     Categories.CategoryFactory,
     Products.ProductFactory,
-    Wishlists.WishlistFactory
+    Wishlists.WishlistFactory,
+    Baskets.BasketFactory
   }
 end

@@ -6,7 +6,10 @@ defmodule Online_Store.MixProject do
       app: :online_Store,
       version: "0.1.0",
       elixir: "~> 1.12",
+      # make_executable: "make",
       elixirc_paths: elixirc_paths(Mix.env()),
+      # make_makefile: "Othermakefile",
+      # compilers: [:elixir_make] ++ Mix.compilers,
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -64,6 +67,7 @@ defmodule Online_Store.MixProject do
 {:faker, "~> 0.13", only: [:test]},
       # pagination
       {:scrivener_ecto, "~> 2.0"},
+      {:elixir_make, "~> 0.6.3"}
     ]
   end
 

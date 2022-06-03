@@ -12,8 +12,7 @@ defmodule Online_Store.Wishlists do
   # Commands
   defdelegate create_wishlist(attrs), to: CreateWishlist, as: :process
   defdelegate update_wishlist(wishlist, attrs), to: UpdateWishlist, as: :process
-
   # Queries
   defdelegate get_wishlist(id), to: GetWishlist, as: :process
-  defdelegate list_wishlist(), to: ListWishlists, as: :process
+  defdelegate list_wishlists(), to: ListWishlists, as: :process
 end

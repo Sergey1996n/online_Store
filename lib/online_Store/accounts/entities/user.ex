@@ -5,6 +5,7 @@ defmodule Online_Store.Accounts.Entities.User do
 
   alias Online_Store.{
     Wishlists.Entities.Wishlist,
+    Baskets.Entities.Basket
     # Repo
   }
 
@@ -19,6 +20,7 @@ defmodule Online_Store.Accounts.Entities.User do
     field :password_hash, :string
 
     has_one :wishlist, Wishlist
+    has_one :basket, Basket
 
     timestamps()
   end
@@ -42,7 +44,7 @@ defmodule Online_Store.Accounts.Entities.User do
       message: "invalid_format"
     )
     # |> put_password_hash()
-    |> assoc_constraint(:wishlist)
+    # |> assoc_constraint(:wishlist)
     # Уточнить за ограничения :birthday
   end
 
@@ -64,7 +66,7 @@ defmodule Online_Store.Accounts.Entities.User do
       message: "invalid_format"
     )
     # |> put_password_hash()
-    |> assoc_constraint(:wishlist)
+    # |> assoc_constraint(:wishlist)
   end
 
   # defp put_password_hash(%{valid?: true, changes: %{password: password}} = changeset) do
