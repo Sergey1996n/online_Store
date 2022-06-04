@@ -9,9 +9,10 @@ defmodule Online_Store.Products.Entities.Product do
     # Repo,
     Relations.WishlistProduct
   }
+
   # alias Online_Store.Repo
 
-  @required  [
+  @required [
     :title,
     :description,
     :price,
@@ -37,6 +38,7 @@ defmodule Online_Store.Products.Entities.Product do
     |> validate_required(@required)
     |> unique_constraint(:title, message: "taken")
     |> assoc_constraint(:category)
+
     # |> put_assoc(:wishlists, [attrs.wishlists])
   end
 
@@ -47,6 +49,7 @@ defmodule Online_Store.Products.Entities.Product do
     |> validate_required(@required)
     |> unique_constraint(:title, message: "taken")
     |> assoc_constraint(:category)
+
     # |> put_assoc(:wishlists, [attrs.wishlists])
   end
 end

@@ -8,7 +8,7 @@ defmodule Online_Store.Repo.Migrations.CreateProducts do
       add :price, :integer, null: false
       add :category_id, references(:categories)
 
-    timestamps()
+      timestamps()
     end
 
     create unique_index(:products, [:title])

@@ -11,7 +11,7 @@ defmodule Online_Store.Wishlists.Entities.Wishlist do
   }
 
   @requires [
-    :user_id,
+    :user_id
   ]
 
   schema "wishlists" do

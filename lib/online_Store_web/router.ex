@@ -58,6 +58,7 @@ defmodule Online_StoreWeb.Router do
   scope "/api/v1", Online_StoreWeb.V1 do
     pipe_through :api
 
-    resources "/products", ProductController, only: [:index, :show]
+    resources "/products", ProductController, only: [:show]
+    resources "/categories", CategoryController, only: [:index, :show]
   end
 end

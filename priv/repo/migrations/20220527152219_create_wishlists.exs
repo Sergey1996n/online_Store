@@ -6,6 +6,6 @@ defmodule Online_Store.Repo.Migrations.CreateWishlists do
       add :user_id, references(:users)
     end
 
-  create unique_index(:wishlists, [:user_id])
+    create unique_index(:wishlists, [:user_id])
   end
 end

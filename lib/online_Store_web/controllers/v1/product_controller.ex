@@ -5,8 +5,8 @@ defmodule Online_StoreWeb.V1.ProductController do
 
   action_fallback(Online_StoreWeb.FallbackController)
 
-  def index(conn, _params) do
-    products = Products.list_products()
+  def index(conn, %{"id" => id}) do
+    products = Products.list_products_category(id)
     render(conn, "index.json", %{products: products})
   end
 

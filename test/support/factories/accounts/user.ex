@@ -12,6 +12,7 @@ defmodule Online_Store.Factories.Accounts.UserFactory do
         phone_number = Map.get(attrs, :phone_number, Phone.EnUs.extension(11))
 
         birthday = Map.get(attrs, :birthday, Date.date_of_birth(18..99))
+
         %User{
           password: password,
           email: sequence(:email, &"#{&1}_#{email}"),

@@ -64,7 +64,7 @@ defmodule Online_Store.MixProject do
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       # testing
       {:ex_machina, "~> 2.7.0"},
-{:faker, "~> 0.13", only: [:test]},
+      {:faker, "~> 0.13", only: [:test]},
       # pagination
       {:scrivener_ecto, "~> 2.0"},
       {:elixir_make, "~> 0.6.3"}

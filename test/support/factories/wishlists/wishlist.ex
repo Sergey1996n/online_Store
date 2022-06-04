@@ -7,8 +7,9 @@ defmodule Online_Store.Factories.Wishlists.WishlistFactory do
 
       def wishlist_factory(attrs) do
         user = Map.get(attrs, :user, insert(:user))
+
         %Wishlist{
-          user: user,
+          user: user
         }
       end
     end

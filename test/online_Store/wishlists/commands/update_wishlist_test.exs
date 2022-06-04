@@ -2,7 +2,7 @@ defmodule Online_Store.Wishlists.Commands.UpdateWishlistTest do
   use Online_Store.DataCase
 
   alias Online_Store.{
-    Wishlists,
+    Wishlists
   }
 
   test "process/1 update_wishlist test" do

@@ -11,7 +11,7 @@ defmodule Online_Store.Baskets.Entities.Basket do
   }
 
   @requires [
-    :user_id,
+    :user_id
   ]
 
   schema "baskets" do

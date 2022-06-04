@@ -7,7 +7,8 @@ defmodule Online_Store.Products do
 
   alias Online_Store.Products.Queries.{
     GetProduct,
-    ListProducts
+    ListProducts,
+    ListProductsCategory
   }
 
   # Commands
@@ -18,4 +19,5 @@ defmodule Online_Store.Products do
   # Queries
   defdelegate get_product(id), to: GetProduct, as: :process
   defdelegate list_products(), to: ListProducts, as: :process
+  defdelegate list_products_category(id), to: ListProductsCategory, as: :process
 end
