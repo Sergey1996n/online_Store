@@ -8,7 +8,7 @@ defmodule Online_StoreWeb.V1.ProductControllerTest do
   end
 
   test "index/2 returns list products", %{conn: conn} do
-    [product_1, product_2, product_3] = insert_list(3, :item)
+    [product_1, product_2, product_3] = insert_list(3, :product)
 
     # response =
     #   conn

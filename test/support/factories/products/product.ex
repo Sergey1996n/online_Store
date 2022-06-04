@@ -12,7 +12,7 @@ defmodule Online_Store.Factories.Products.ProductFactory do
         category = Map.get(attrs, :category, insert(:category))
 
         %Product{
-          title: title,
+          title: sequence(:title, &"#{&1}_#{title}"),
           description: description,
           price: price,
           category: category
