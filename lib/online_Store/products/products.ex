@@ -19,5 +19,8 @@ defmodule Online_Store.Products do
   # Queries
   defdelegate get_product(id), to: GetProduct, as: :process
   defdelegate list_products(), to: ListProducts, as: :process
-  defdelegate list_products_category(id), to: ListProductsCategory, as: :process
+
+  defdelegate list_products_category(category_id, param \\ %{}),
+    to: ListProductsCategory,
+    as: :process
 end

@@ -6,8 +6,9 @@ defmodule Online_Store.Products.Entities.Product do
   alias Online_Store.{
     Categories.Entities.Category,
     Wishlists.Entities.Wishlist,
-    # Repo,
-    Relations.WishlistProduct
+    Baskets.Entities.Basket,
+    Relations.WishlistProduct,
+    Relations.BasketProduct
   }
 
   # alias Online_Store.Repo
@@ -27,6 +28,7 @@ defmodule Online_Store.Products.Entities.Product do
     belongs_to :category, Category
 
     many_to_many :wishlists, Wishlist, join_through: WishlistProduct
+    many_to_many :products, Basket, join_through: BasketProduct
 
     timestamps()
   end

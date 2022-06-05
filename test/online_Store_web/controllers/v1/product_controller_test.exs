@@ -7,13 +7,12 @@ defmodule Online_StoreWeb.V1.ProductControllerTest do
     {:ok, %{conn: conn}}
   end
 
-  test "index/2 returns list products", %{conn: conn} do
-    [product_1, product_2, product_3] = insert_list(3, :product)
+  # test "index/2 returns list products", %{conn: conn} do
+  #   [product_1, product_2, product_3] = insert_list(3, :product)
 
-    # response =
-    #   conn
-    #   |> get(item_path(conn, :product))
-    #   |> json_response(200)
-    #   |> IO.inspect()
-  end
+  #   # response =
+  #   #   conn
+  #   #   |> get(item_path(conn, :product))
+  #   #   |> json_response(200)
+  # end
 end

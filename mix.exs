@@ -67,7 +67,7 @@ defmodule Online_Store.MixProject do
       {:faker, "~> 0.13", only: [:test]},
       # pagination
       {:scrivener_ecto, "~> 2.0"},
-      {:elixir_make, "~> 0.6.3"}
+      {:params, "~> 2.2"}
     ]
   end
 

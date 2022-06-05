@@ -5,10 +5,10 @@ defmodule Online_StoreWeb.V1.ProductController do
 
   action_fallback(Online_StoreWeb.FallbackController)
 
-  def index(conn, %{"id" => id}) do
-    products = Products.list_products_category(id)
-    render(conn, "index.json", %{products: products})
-  end
+  # def index(conn, %{"id" => category_id}) do
+  #   products = Products.list_products_category(category_id)
+  #   render(conn, "index.json", %{products: products})
+  # end
 
   def show(conn, %{"id" => id}) do
     with {:ok, product} <- Products.get_product(id) do

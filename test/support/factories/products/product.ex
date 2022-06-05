@@ -1,7 +1,7 @@
 defmodule Online_Store.Factories.Products.ProductFactory do
   defmacro __using__(_opts) do
     quote do
-      alias Faker.{Lorem, Random, Phone, Date}
+      alias Faker.{Lorem, Random, Phone, DateTime}
       alias Online_Store.Products.Entities.Product
       alias Online_Store.DataCase
 
@@ -12,10 +12,10 @@ defmodule Online_Store.Factories.Products.ProductFactory do
         category = Map.get(attrs, :category, insert(:category))
 
         %Product{
-          title: sequence(:title, &"#{&1}_#{title}"),
+          title: sequence(:title, &"#{title}_#{&1}"),
           description: description,
           price: price,
-          category: category
+          category: category,
         }
       end
     end
