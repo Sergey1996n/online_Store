@@ -15,7 +15,7 @@ defmodule Online_Store.Factories.Products.ProductFactory do
           title: sequence(:title, &"#{title}_#{&1}"),
           description: description,
           price: price,
-          category: category,
+          category: category
         }
       end
     end

@@ -95,8 +95,7 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
              }
            ]
 
-    list_products =
-      Enum.sort_by(list_products, fn p -> p.title end)
+    list_products = Enum.sort_by(list_products, fn p -> p.title end)
 
     [product_1, product_2, product_3, product_4, product_5] = list_products
 
@@ -139,7 +138,6 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
            ]
   end
 
-  @tag :kek
   test "show/2 returns list products category filter", %{conn: conn} do
     category = insert(:category)
     product_1 = insert(:product, %{category: category, price: 10000})
@@ -153,58 +151,59 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
       |> get(category_path(conn, :show, category, %{from: 30000, to: 40000}))
       |> json_response(200)
 
-      assert response == [
-        %{
-          "description" => product_3.description,
-          "id" => product_3.id,
-          "price" => product_3.price,
-          "title" => product_3.title
-        },
-        %{
-          "description" => product_4.description,
-          "id" => product_4.id,
-          "price" => product_4.price,
-          "title" => product_4.title
-        },
-      ]
+    assert response == [
+             %{
+               "description" => product_3.description,
+               "id" => product_3.id,
+               "price" => product_3.price,
+               "title" => product_3.title
+             },
+             %{
+               "description" => product_4.description,
+               "id" => product_4.id,
+               "price" => product_4.price,
+               "title" => product_4.title
+             }
+           ]
 
-      response =
-        conn
-        |> get(category_path(conn, :show, category, %{from: 40000}))
-        |> json_response(200)
+    response =
+      conn
+      |> get(category_path(conn, :show, category, %{from: 40000}))
+      |> json_response(200)
 
-        assert response == [
-          %{
-            "description" => product_4.description,
-            "id" => product_4.id,
-            "price" => product_4.price,
-            "title" => product_4.title
-          },
-          %{
-            "description" => product_5.description,
-            "id" => product_5.id,
-            "price" => product_5.price,
-            "title" => product_5.title
-          }
-        ]
-        response =
-          conn
-          |> get(category_path(conn, :show, category, %{to: 20000}))
-          |> json_response(200)
+    assert response == [
+             %{
+               "description" => product_4.description,
+               "id" => product_4.id,
+               "price" => product_4.price,
+               "title" => product_4.title
+             },
+             %{
+               "description" => product_5.description,
+               "id" => product_5.id,
+               "price" => product_5.price,
+               "title" => product_5.title
+             }
+           ]
 
-          assert response == [
-            %{
-              "description" => product_1.description,
-              "id" => product_1.id,
-              "price" => product_1.price,
-              "title" => product_1.title
-            },
-            %{
-              "description" => product_2.description,
-              "id" => product_2.id,
-              "price" => product_2.price,
-              "title" => product_2.title
-            }
-          ]
+    response =
+      conn
+      |> get(category_path(conn, :show, category, %{to: 20000}))
+      |> json_response(200)
+
+    assert response == [
+             %{
+               "description" => product_1.description,
+               "id" => product_1.id,
+               "price" => product_1.price,
+               "title" => product_1.title
+             },
+             %{
+               "description" => product_2.description,
+               "id" => product_2.id,
+               "price" => product_2.price,
+               "title" => product_2.title
+             }
+           ]
   end
 end

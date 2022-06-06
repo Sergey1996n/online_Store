@@ -28,9 +28,9 @@ defmodule Online_Store.Accounts.Entities.User do
   def create_changeset(%__MODULE__{} = user, attrs) do
     user
     # |> Repo.preload(:product)
-    |> cast(attrs, [:phone_number, :email, :name, :surname, :nickname, :birthday])
+    |> cast(attrs, [:phone_number, :email, :name, :surname, :nickname, :birthday, :password])
     # Спросить за :nickname
-    |> validate_required([:phone_number, :birthday])
+    |> validate_required([:phone_number, :password])
     |> validate_format(:phone_number, ~r/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
       message: "invalid_format"
     )

@@ -15,6 +15,15 @@ defmodule Online_StoreWeb.Router do
     plug ProperCase.Plug.SnakeCaseParams
   end
 
+  pipeline :user_auth do
+    plug Online_Store.Accounts.Guardian.Pipeline
+  end
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+    plug Online_StoreWeb.CurrentUserPlug
+  end
+
   scope "/", Online_StoreWeb do
     pipe_through :browser
 
@@ -56,7 +65,12 @@ defmodule Online_StoreWeb.Router do
   end
 
   scope "/api/v1", Online_StoreWeb.V1 do
-    pipe_through :api
+    pipe_through [:api]
+
+    post "/users", UserController, :create
+    post "/users/:id", UserController, :update
+
+    pipe_through [:user_auth, :ensure_auth]
 
     resources "/products", ProductController, only: [:show]
     resources "/categories", CategoryController, only: [:index, :show]

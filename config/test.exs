@@ -28,3 +28,6 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :online_Store, Online_Store.Accounts.Services.Guardian,
+  secret_key: "HxdiegBPdfAM4StbEYdtcT7B2k/n/+eux1D6172e/eEdLBepO7QVTM76FFtGTKrp"

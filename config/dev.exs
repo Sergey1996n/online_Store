@@ -9,6 +9,9 @@ config :online_Store, Online_Store.Repo,
   database: "online_store_dev",
   pool_size: 10
 
+config :online_Store, Online_Store.Accounts.Services.Guardian,
+  secret_key: "YlyxOIkewn18tIupgG0AyvhYMjW6s1GYrQmzJhhPIMW+EumBoSDhKjIMO+UTblYo"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

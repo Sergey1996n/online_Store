@@ -30,14 +30,11 @@ defmodule Online_StoreWeb.V1.CategoryController do
 
   # def show(conn, %{"id" => category_id}, params) do
   #   # Products.list_products_category(id)
-  #   # params |> IO.inspect()
   #   products = Products.list_products_category(category_id, params)
   #   render(conn, "index_product.json", %{products: products})
   # end
 
   def show(conn, %{"id" => category_id} = params) do
-    # Products.list_products_category(id)
-    # params |> IO.inspect()
     with {:ok, params} <- ApplyParams.do_apply(IndexSearchParams, params) do
       products = Products.list_products_category(category_id, params)
       render(conn, "index_product.json", %{products: products})

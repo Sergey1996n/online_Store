@@ -3,8 +3,8 @@ defmodule Online_Store.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :phone_number, :string
-      add :email, :string, null: false
+      add :phone_number, :string, null: false
+      add :email, :string
       add :name, :string
       add :surname, :string
       add :nickname, :string

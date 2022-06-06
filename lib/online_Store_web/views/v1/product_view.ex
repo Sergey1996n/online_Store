@@ -10,7 +10,7 @@ defmodule Online_StoreWeb.V1.ProductView do
       id: product.id,
       title: product.title,
       description: product.description,
-      price: product.price,
+      price: product.price
     }
   end
 end

@@ -26,10 +26,21 @@ defmodule Online_StoreWeb.ConnCase do
       import Online_Store.DataCase
       import Online_Store.Factories
 
+      alias Online_Store.Accounts.{
+        Entities.User,
+        Services.Guardian
+      }
+
       alias Online_StoreWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint Online_StoreWeb.Endpoint
+
+      def as_user(conn, %User{} = user) do
+        {:ok, token, _} = Guardian.encode_and_sign(user, %{}, token_type: :access)
+
+        Plug.Conn.put_req_header(conn, "authorization", "bearer: " <> token)
+      end
     end
   end
 
