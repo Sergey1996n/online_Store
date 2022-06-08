@@ -4,7 +4,6 @@ defmodule Online_StoreWeb.V1.CategoryController do
   alias Online_Store.Categories
   alias Online_Store.Products
   alias Online_StoreWeb.ApplyParams
-  # alias Online_StoreWeb.V1.CharlistPolicy
 
   action_fallback(Online_StoreWeb.FallbackController)
 
@@ -13,7 +12,6 @@ defmodule Online_StoreWeb.V1.CategoryController do
       order: :integer,
       from: :integer,
       to: :integer
-      # charisma: :integer,
       # constitution: :integer,
       # intelligence: :integer,
       # nickname: :string,

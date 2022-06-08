@@ -28,7 +28,7 @@ defmodule Online_Store.Products.Entities.Product do
     belongs_to :category, Category
 
     many_to_many :wishlists, Wishlist, join_through: WishlistProduct
-    many_to_many :products, Basket, join_through: BasketProduct
+    many_to_many :baskets, Basket, join_through: BasketProduct
 
     timestamps()
   end

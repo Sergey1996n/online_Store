@@ -33,13 +33,13 @@ defmodule Online_StoreWeb.V1.UserController do
     end
   end
 
-  def update(conn, %{"current_user" => current_user, "id" => id} = param) do
-    IO.inspect(current_user)
-    user = Accounts.get_user(id)
-    IO.inspect(user)
-    with {:ok, attrs} <- ApplyParams.do_apply(CreateUserParams, param),
-         {:ok, user} <- Accounts.update_user(user, attrs) do
-         IO.inspect(current_user)
-    end
-  end
+  # def update(conn, %{"current_user" => current_user, "id" => id} = param) do
+  #   IO.inspect(current_user)
+  #   user = Accounts.get_user(id)
+  #   IO.inspect(user)
+  #   with {:ok, attrs} <- ApplyParams.do_apply(CreateUserParams, param),
+  #        {:ok, user} <- Accounts.update_user(user, attrs) do
+  #        IO.inspect(current_user)
+  #   end
+  # end
 end

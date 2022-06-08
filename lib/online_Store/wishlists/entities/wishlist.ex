@@ -24,19 +24,19 @@ defmodule Online_Store.Wishlists.Entities.Wishlist do
 
   def create_changeset(%__MODULE__{} = wishlist, attrs) do
     wishlist
-    |> Repo.preload(:products)
     |> cast(attrs, @requires)
     |> validate_required(@requires)
     |> assoc_constraint(:user)
-    |> put_assoc(:products, [attrs.products])
   end
 
   def update_changeset(%__MODULE__{} = wishlist, attrs) do
-    wishlist
-    |> Repo.preload(:products)
+    wishlist_preload = wishlist |> Repo.preload(:products)
+
+    wishlist_preload
+    |> change()
+    |> put_assoc(:products, [attrs.products | wishlist_preload.products])
     |> cast(attrs, @requires)
     |> validate_required(@requires)
     |> assoc_constraint(:user)
-    |> put_assoc(:products, [attrs.products])
   end
 end

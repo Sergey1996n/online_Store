@@ -1,6 +1,6 @@
 defmodule Online_Store.Accounts.Guardian.Pipeline do
   use Guardian.Plug.Pipeline,
-    otp_app: :oz_api,
+    otp_app: :online_Store,
     error_handler: Online_Store.Accounts.Guardian.ErrorHandler,
     module: Online_Store.Accounts.Services.Guardian
 
