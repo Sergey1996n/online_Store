@@ -11,7 +11,6 @@ defmodule Online_Store.Wishlists.Commands.UpdateWishlistTest do
     {:ok, %{wishlist: create_wishlist}}
   end
 
-  @tag :kek
   test "process/1 update null wishlist test",  %{wishlist: create_wishlist} do
     attrs = %{products: insert(:product)}
     assert {:ok, updated_wishlist} = Wishlists.update_wishlist(create_wishlist, attrs)

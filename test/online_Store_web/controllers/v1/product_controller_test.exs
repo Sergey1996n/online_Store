@@ -4,9 +4,12 @@ defmodule Online_StoreWeb.V1.ProductControllerTest do
   import Online_StoreWeb.Router.Helpers
 
   setup %{conn: conn} do
+    # user = insert(:user)
+    # conn = as_user(conn, user)
     {:ok, %{conn: conn}}
   end
 
+  @tag :kek
   test "show/2 returns product", %{conn: conn} do
     product = insert(:product, %{category: insert(:category)})
 

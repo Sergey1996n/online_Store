@@ -68,11 +68,15 @@ defmodule Online_StoreWeb.Router do
     pipe_through [:api]
 
     post "/users", UserController, :create
-    post "/users/:id", UserController, :update
-
-    pipe_through [:user_auth, :ensure_auth]
 
     resources "/products", ProductController, only: [:show]
     resources "/categories", CategoryController, only: [:index, :show]
+
+    pipe_through [:user_auth, :ensure_auth]
+    
+    post "/users/:id", UserController, :update
+    # pipe_through [:ensure_auth]
+
+
   end
 end
