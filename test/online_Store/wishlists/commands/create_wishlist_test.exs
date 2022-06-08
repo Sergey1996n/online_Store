@@ -10,3 +10,4 @@ defmodule Online_Store.Wishlists.Commands.CreateWishlistTest do
     assert {:ok, create_wishlist} = Wishlists.create_wishlist(%{user_id: user.id})
     assert create_wishlist.user_id == user.id
   end
+end

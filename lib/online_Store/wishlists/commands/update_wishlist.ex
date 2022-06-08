@@ -8,7 +8,5 @@ defmodule Online_Store.Wishlists.Commands.UpdateWishlist do
     wishlist
     |> Wishlist.update_changeset(attrs)
     |> Repo.update()
-
-    # |> Repo.insert()
   end
 end
