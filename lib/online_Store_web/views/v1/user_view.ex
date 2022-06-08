@@ -14,4 +14,12 @@ defmodule Online_StoreWeb.V1.UserView do
       }
     }
   end
+
+  def render("update.json", %{user: user}) do
+    %{
+      user: %{
+        phone_number: user.phone_number
+      }
+    }
+  end
 end

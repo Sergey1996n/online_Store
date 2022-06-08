@@ -19,6 +19,18 @@ defmodule Online_StoreWeb.V1.UserController do
     }
   end
 
+  defmodule UpdateUserParams do
+    use Params.Schema, %{
+      phone_number: :string,
+      email: :string,
+      name: :string,
+      surname: :string,
+      nickname: :string,
+      birthday: :date,
+      password: :string
+    }
+  end
+
   def create(conn, attrs) do
     with {:ok, attrs} <- ApplyParams.do_apply(CreateUserParams, attrs),
          {:ok, user} <- Accounts.create_user(attrs),
@@ -33,13 +45,10 @@ defmodule Online_StoreWeb.V1.UserController do
     end
   end
 
-  # def update(conn, %{"current_user" => current_user, "id" => id} = param) do
-  #   IO.inspect(current_user)
-  #   user = Accounts.get_user(id)
-  #   IO.inspect(user)
-  #   with {:ok, attrs} <- ApplyParams.do_apply(CreateUserParams, param),
-  #        {:ok, user} <- Accounts.update_user(user, attrs) do
-  #        IO.inspect(current_user)
-  #   end
-  # end
+  def update(conn, %{"current_user" => current_user} = param) do
+    with {:ok, attrs} <- ApplyParams.do_apply(UpdateUserParams, param),
+         {:ok, user} <- Accounts.update_user(current_user, attrs) do
+      render(conn, "update.json", %{user: user})
+    end
+  end
 end

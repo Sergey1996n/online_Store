@@ -73,10 +73,7 @@ defmodule Online_StoreWeb.Router do
     resources "/categories", CategoryController, only: [:index, :show]
 
     pipe_through [:user_auth, :ensure_auth]
-    
-    post "/users/:id", UserController, :update
-    # pipe_through [:ensure_auth]
 
-
+    patch "/users/:id", UserController, :update
   end
 end

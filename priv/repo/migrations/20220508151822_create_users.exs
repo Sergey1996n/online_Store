@@ -10,7 +10,6 @@ defmodule Online_Store.Repo.Migrations.CreateUsers do
       add :nickname, :string
       add :birthday, :date
       add :password_hash, :string
-      # add :wishlist_id, references(:wishlists)
 
       timestamps()
     end

@@ -11,7 +11,7 @@ defmodule Online_StoreWeb.V1.ProductController do
   # end
 
   def show(conn, %{"id" => id}) do
-      with {:ok, product} <- Products.get_product(id) do
+    with {:ok, product} <- Products.get_product(id) do
       render(conn, "show.json", %{product: product})
     end
   end

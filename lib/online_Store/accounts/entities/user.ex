@@ -9,6 +9,20 @@ defmodule Online_Store.Accounts.Entities.User do
     # Repo
   }
 
+  @requires [
+    :phone_number,
+    :password
+  ]
+
+  @options [
+    :email,
+    :name,
+    :surname,
+    :nickname,
+    :birthday,
+    :password_hash
+  ]
+
   schema "users" do
     field :phone_number, :string
     field :email, :string
@@ -27,10 +41,8 @@ defmodule Online_Store.Accounts.Entities.User do
 
   def create_changeset(%__MODULE__{} = user, attrs) do
     user
-    # |> Repo.preload(:product)
-    |> cast(attrs, [:phone_number, :email, :name, :surname, :nickname, :birthday, :password])
-    # Спросить за :nickname
-    |> validate_required([:phone_number, :password])
+    |> cast(attrs, @requires ++ @options)
+    |> validate_required(@requires)
     |> validate_format(:phone_number, ~r/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
       message: "invalid_format"
     )
@@ -47,15 +59,12 @@ defmodule Online_Store.Accounts.Entities.User do
     )
 
     # |> put_password_hash()
-    # |> assoc_constraint(:wishlist)
-    # Уточнить за ограничения :birthday
   end
 
   def update_changeset(%__MODULE__{} = user, attrs) do
     user
-    # |> Repo.preload(:product)
-    |> cast(attrs, [:phone_number, :email, :name, :surname, :nickname, :birthday])
-    |> validate_required([:phone_number, :birthday])
+    |> cast(attrs, @requires ++ @options)
+    # Спросить за :nickname
     |> validate_format(:phone_number, ~r/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
       message: "invalid_format"
     )
@@ -72,7 +81,6 @@ defmodule Online_Store.Accounts.Entities.User do
     )
 
     # |> put_password_hash()
-    # |> assoc_constraint(:wishlist)
   end
 
   # defp put_password_hash(%{valid?: true, changes: %{password: password}} = changeset) do
