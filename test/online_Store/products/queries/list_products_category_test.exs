@@ -8,7 +8,7 @@ defmodule Online_Store.Products.Queries.ListProductsCategoryTest do
     category_2 = insert(:category)
     insert_list(2, :product, %{category: category_1})
     insert_list(2, :product, %{category: category_2})
-    result = Products.list_products_category(category_1.id)
+    result = Products.list_products_category(category_1.id).entries
     assert length(result) == 2
   end
 end

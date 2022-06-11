@@ -29,7 +29,6 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
            }
   end
 
-  @tag :kek
   test "update/2 update user", %{conn: conn, user: user} do
     attrs = %{
       "name" => "Sergey",
@@ -40,5 +39,11 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
       conn
       |> patch(user_path(conn, :update, user, attrs))
       |> json_response(200)
+
+    assert response == %{
+             "user" => %{
+               "phone_number" => user.phone_number
+             }
+           }
   end
 end

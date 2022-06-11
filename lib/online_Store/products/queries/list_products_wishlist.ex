@@ -6,16 +6,18 @@ defmodule Online_Store.Products.Queries.ListProductsWishlist do
     Products.Entities.Product
   }
 
-  def process(wishlist_id, param) do
+  def process(wishlist_id, params) do
     Product
     |> by_wishlist(wishlist_id)
-    |> sort(param)
-    |> Repo.all()
+    |> sort(params)
+    |> Repo.paginate(params)
   end
 
   defp by_wishlist(query, wishlist_id) do
     from product in query,
-      where: product.wishlist_id == ^wishlist_id
+      join: wishlists in assoc(product, :wishlists),
+      where: wishlists.id == ^wishlist_id,
+      preload: [wishlists: wishlists]
   end
 
   defp sort(query, %{order: order}) do

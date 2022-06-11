@@ -3,6 +3,8 @@ defmodule Online_Store.Repo do
     otp_app: :online_Store,
     adapter: Ecto.Adapters.Postgres
 
+  use Scrivener, page_size: 10
+
   def fetch_one(query) do
     case __MODULE__.one(query) do
       nil ->
@@ -32,14 +34,4 @@ defmodule Online_Store.Repo do
         {:error, :not_found}
     end
   end
-
-  # def find_all(query) do
-  #   case __MODULE__.all(query) do
-  #     %_{} = schema ->
-  #       {:ok, schema}
-
-  #     nil ->
-  #       {:error, :not_found}
-  #   end
-  # end
 end

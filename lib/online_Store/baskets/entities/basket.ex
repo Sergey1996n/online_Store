@@ -14,6 +14,10 @@ defmodule Online_Store.Baskets.Entities.Basket do
     :user_id
   ]
 
+  @options [
+    :count
+  ]
+
   schema "baskets" do
     field :count, :integer
     belongs_to :user, User
@@ -25,21 +29,33 @@ defmodule Online_Store.Baskets.Entities.Basket do
 
   def create_changeset(%__MODULE__{} = basket, attrs) do
     basket
-    |> Repo.preload(:products)
-    |> cast(attrs, @requires)
+    |> cast(attrs, @requires ++ @options)
     |> validate_required(@requires)
     |> validate_number(:count, greater_than_or_equal_to: 1)
     |> assoc_constraint(:user)
-    |> put_assoc(:products, [attrs.products])
   end
 
   def update_changeset(%__MODULE__{} = basket, attrs) do
-    basket
-    |> Repo.preload(:products)
-    |> cast(attrs, @requires)
+    basket_preload = basket |> Repo.preload(:products)
+
+    basket_preload
+    |> change()
+    |> put_assoc(:products, [attrs.products | basket_preload.products])
+    |> cast(attrs, @requires ++ @options)
     |> validate_required(@requires)
     |> validate_number(:count, greater_than_or_equal_to: 1)
     |> assoc_constraint(:user)
-    |> put_assoc(:products, [attrs.products])
+  end
+
+  def delete_changeset(%__MODULE__{} = basket, attrs) do
+    basket_preload = basket |> Repo.preload(:products)
+
+    basket_preload
+    |> change()
+    |> delete_change(:products)
+    |> put_assoc(:products, basket_preload.products -- [attrs.products])
+    |> cast(attrs, @requires)
+    |> validate_required(@requires)
+    |> assoc_constraint(:user)
   end
 end

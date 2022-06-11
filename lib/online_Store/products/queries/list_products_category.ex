@@ -6,12 +6,12 @@ defmodule Online_Store.Products.Queries.ListProductsCategory do
     Products.Entities.Product
   }
 
-  def process(category_id, param) do
+  def process(category_id, params) do
     Product
     |> by_category(category_id)
-    |> filter(param)
-    |> sort(param)
-    |> Repo.all()
+    |> filter(params)
+    |> sort(params)
+    |> Repo.paginate(params)
   end
 
   defp by_category(query, category_id) do

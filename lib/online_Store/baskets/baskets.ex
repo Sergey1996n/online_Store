@@ -6,7 +6,8 @@ defmodule Online_Store.Baskets do
 
   alias Online_Store.Baskets.Queries.{
     GetBasket,
-    ListBaskets
+    ListBaskets,
+    GetBasketUser
   }
 
   # Commands
@@ -16,4 +17,5 @@ defmodule Online_Store.Baskets do
   # Queries
   defdelegate get_basket(id), to: GetBasket, as: :process
   defdelegate list_baskets(), to: ListBaskets, as: :process
+  defdelegate get_basket_user(user_id), to: GetBasketUser, as: :process
 end
