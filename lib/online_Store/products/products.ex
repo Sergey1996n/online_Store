@@ -9,7 +9,8 @@ defmodule Online_Store.Products do
     GetProduct,
     ListProducts,
     ListProductsCategory,
-    ListProductsWishlist
+    ListProductsWishlist,
+    ListProductsBasket
   }
 
   # Commands
@@ -27,5 +28,9 @@ defmodule Online_Store.Products do
 
   defdelegate list_products_wishlist(wishlist_id, param \\ %{}),
     to: ListProductsWishlist,
+    as: :process
+
+  defdelegate list_products_basket(basket_id, param \\ %{}),
+    to: ListProductsBasket,
     as: :process
 end

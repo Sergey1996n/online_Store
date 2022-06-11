@@ -22,7 +22,7 @@ defmodule Online_Store.Baskets.Entities.Basket do
     field :count, :integer
     belongs_to :user, User
 
-    many_to_many :products, Product, join_through: BasketProduct
+    many_to_many :products, Product, join_through: BasketProduct, on_replace: :delete
 
     # timestamps()
   end

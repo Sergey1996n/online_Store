@@ -1,7 +1,8 @@
 defmodule Online_Store.Baskets do
   alias Online_Store.Baskets.Commands.{
     CreateBasket,
-    UpdateBasket
+    UpdateBasket,
+    DeleteProductBasket
   }
 
   alias Online_Store.Baskets.Queries.{
@@ -13,6 +14,7 @@ defmodule Online_Store.Baskets do
   # Commands
   defdelegate create_basket(attrs), to: CreateBasket, as: :process
   defdelegate update_basket(basket, attrs), to: UpdateBasket, as: :process
+  defdelegate delete_product(basket, attrs), to: DeleteProductBasket, as: :process
 
   # Queries
   defdelegate get_basket(id), to: GetBasket, as: :process
