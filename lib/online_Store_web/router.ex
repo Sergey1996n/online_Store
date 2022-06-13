@@ -77,5 +77,6 @@ defmodule Online_StoreWeb.Router do
     patch "/users/:id", UserController, :update
     resources "/wishlist", WishlistController, only: [:show]
     resources "/basket", BasketController, only: [:show]
+    resources "/orders", OrderController, only: [:create]
   end
 end

@@ -9,10 +9,12 @@ defmodule Online_Store.Factories.Baskets.BasketFactory do
       def basket_factory(attrs) do
         user = Map.get(attrs, :user, insert(:user))
         count = Map.get(attrs, :count, Enum.random(1..10))
+        products = Map.get(attrs, :products, [])
 
         %Basket{
           user: user,
-          count: count
+          count: count,
+          products: products
         }
       end
     end

@@ -14,6 +14,7 @@ defmodule Online_Store.Baskets.Queries.GetBasketUser do
 
   defp by_basket(query, user_id) do
     from basket in query,
-      where: basket.user_id == ^user_id
+      where: basket.user_id == ^user_id,
+      preload: [:products]
   end
 end

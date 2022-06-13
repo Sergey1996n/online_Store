@@ -163,7 +163,6 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
              }
   end
 
-  @tag :kek
   test "show/2 returns list products category filter", %{conn: conn} do
     category = insert(:category)
     product_1 = insert(:product, %{category: category, price: 10000})

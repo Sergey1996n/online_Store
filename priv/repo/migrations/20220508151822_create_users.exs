@@ -10,6 +10,7 @@ defmodule Online_Store.Repo.Migrations.CreateUsers do
       add :nickname, :string
       add :birthday, :date
       add :password_hash, :string
+      add :balance, :integer
 
       timestamps()
     end

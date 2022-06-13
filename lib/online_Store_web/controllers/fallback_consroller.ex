@@ -16,4 +16,11 @@ defmodule Online_StoreWeb.FallbackController do
     |> put_view(ErrorView)
     |> render("403.json", message: "You are not authorized to perform this action.")
   end
+
+  def call(%Conn{} = conn, {:error, :failed_transfer}) do
+    conn
+    |> put_status(:payment_required)
+    |> put_view(ErrorView)
+    |> render("402.json", message: "Not enough money.")
+  end
 end

@@ -31,7 +31,6 @@ defmodule Online_Store.Baskets.Entities.Basket do
     basket
     |> cast(attrs, @requires ++ @options)
     |> validate_required(@requires)
-    |> validate_number(:count, greater_than_or_equal_to: 1)
     |> assoc_constraint(:user)
   end
 
@@ -54,8 +53,12 @@ defmodule Online_Store.Baskets.Entities.Basket do
     |> change()
     |> delete_change(:products)
     |> put_assoc(:products, basket_preload.products -- [attrs.products])
-    |> cast(attrs, @requires)
-    |> validate_required(@requires)
     |> assoc_constraint(:user)
+  end
+
+  def clear_product_changeset(%__MODULE__{} = basket) do
+    basket
+    |> change()
+    |> put_assoc(:products, [])
   end
 end

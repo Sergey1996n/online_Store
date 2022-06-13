@@ -5,8 +5,8 @@ defmodule Online_Store.Accounts.Entities.User do
 
   alias Online_Store.{
     Wishlists.Entities.Wishlist,
-    Baskets.Entities.Basket
-    # Repo
+    Baskets.Entities.Basket,
+    Orders.Entities.Order
   }
 
   @requires [
@@ -20,7 +20,8 @@ defmodule Online_Store.Accounts.Entities.User do
     :surname,
     :nickname,
     :birthday,
-    :password_hash
+    :password_hash,
+    :balance
   ]
 
   schema "users" do
@@ -32,9 +33,11 @@ defmodule Online_Store.Accounts.Entities.User do
     field :birthday, :date
     field :password, :string, virtual: true
     field :password_hash, :string
+    field :balance, :integer
 
     has_one :wishlist, Wishlist
     has_one :basket, Basket
+    has_many :order, Order
 
     timestamps()
   end
@@ -57,6 +60,7 @@ defmodule Online_Store.Accounts.Entities.User do
     |> validate_format(:password, ~r/^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,}/,
       message: "invalid_format"
     )
+    |> validate_number(:balance, greater_than_or_equal_to: 0)
 
     # |> put_password_hash()
   end
@@ -79,6 +83,7 @@ defmodule Online_Store.Accounts.Entities.User do
     |> validate_format(:password, ~r/^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,}/,
       message: "invalid_format"
     )
+    |> validate_number(:balance, greater_than_or_equal_to: 0)
 
     # |> put_password_hash()
   end

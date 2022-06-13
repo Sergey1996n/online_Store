@@ -18,8 +18,6 @@ defmodule Online_Store.Wishlists.Entities.Wishlist do
     belongs_to :user, User
 
     many_to_many :products, Product, join_through: WishlistProduct, on_replace: :delete
-
-    # timestamps()
   end
 
   def create_changeset(%__MODULE__{} = wishlist, attrs) do
