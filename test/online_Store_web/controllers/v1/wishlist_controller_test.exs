@@ -6,24 +6,15 @@ defmodule Online_StoreWeb.V1.WishlistControllerTest do
 
   setup %{conn: conn} do
     user = insert(:user, %{password: "testPassword1"})
+    wishlist = insert(:wishlist, %{user: user})
     conn = as_user(conn, user)
-    {:ok, %{conn: conn, user: user}}
+    {:ok, %{conn: conn, wishlist: wishlist}}
   end
 
-  test "show/2 returns list products wishlist", %{conn: conn, user: user} do
-    wishlist = insert(:wishlist, %{user: user})
+  test "show/2 returns list products wishlist", %{conn: conn, wishlist: wishlist} do
     [product_1, product_2] = insert_list(2, :product)
-
-    [product_1, product_2] = Enum.sort_by([product_1, product_2], fn p -> p.price end)
-
-    {:ok, wishlist_update} =
-      wishlist
-      |> Wishlists.update_wishlist(%{products: product_1})
-
-    {:ok, wishlist_update} =
-      wishlist_update
-      |> Wishlists.update_wishlist(%{products: product_2})
-
+    {:ok, wishlist_update} = Wishlists.update_wishlist(wishlist, %{products: product_2})
+    {:ok, wishlist_update} = Wishlists.update_wishlist(wishlist_update, %{products: product_1})
     attrs = %{page: 1, page_size: 10}
 
     response =
@@ -51,5 +42,25 @@ defmodule Online_StoreWeb.V1.WishlistControllerTest do
              "total_entries" => 2,
              "total_pages" => 1
            }
+  end
+
+  test "update/2 update wishlist", %{conn: conn, wishlist: wishlist} do
+    product = insert(:product)
+
+    # Добавляем товар
+    response =
+      conn
+      |> patch(wishlist_path(conn, :update, wishlist, %{product_id: product.id}))
+      |> json_response(200)
+
+    assert response == %{"count" => 1}
+
+    # Удаляем товар
+    response =
+      conn
+      |> patch(wishlist_path(conn, :update, wishlist, %{product_id: product.id}))
+      |> json_response(200)
+
+    assert response == %{"count" => 0}
   end
 end

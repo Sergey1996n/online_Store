@@ -10,6 +10,7 @@ defmodule Online_StoreWeb.V1.UserView do
       access_token: access_token,
       refresh_token: refresh_token,
       user: %{
+        id: user.id,
         email: user.email,
         name: user.name,
         surname: user.surname,
@@ -23,6 +24,7 @@ defmodule Online_StoreWeb.V1.UserView do
   def render("update.json", %{user: user}) do
     %{
       user: %{
+        id: user.id,
         email: user.email,
         name: user.name,
         surname: user.surname,

@@ -12,4 +12,8 @@ defmodule Online_StoreWeb.V1.WishlistView do
       total_pages: page.total_pages
     }
   end
+
+  def render("update.json", %{count: count}) do
+    %{count: count}
+  end
 end

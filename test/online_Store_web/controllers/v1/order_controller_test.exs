@@ -2,7 +2,6 @@ defmodule Online_StoreWeb.V1.OrderControllerTest do
   use Online_StoreWeb.ConnCase
 
   import Online_StoreWeb.Router.Helpers
-  alias Online_Store.Orders
   alias Online_Store.Baskets
   alias Online_Store.Repo
   alias Online_Store.Accounts
@@ -15,7 +14,6 @@ defmodule Online_StoreWeb.V1.OrderControllerTest do
     {:ok, %{conn: conn, user: user, basket: basket}}
   end
 
-  @tag :kek
   test "create/2 create order", %{conn: conn, user: user, basket: basket} do
     [product_1, product_2] = basket.products
 

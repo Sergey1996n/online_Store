@@ -32,12 +32,14 @@ defmodule Online_Store.Products.Queries.ListProductsWishlist do
 
       3 ->
         from product in query,
-          order_by: [desc: :inserted_at]
+          # order_by: [desc: :inserted_at]
+          order_by: [asc: :price]
     end
   end
 
   defp sort(query, _) do
     from product in query,
-      order_by: [asc: :price]
+      # order_by: [asc: :price]
+      order_by: [desc: :inserted_at]
   end
 end

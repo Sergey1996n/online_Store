@@ -75,8 +75,8 @@ defmodule Online_StoreWeb.Router do
     pipe_through [:user_auth, :ensure_auth]
 
     patch "/users/:id", UserController, :update
-    resources "/wishlist", WishlistController, only: [:show]
-    resources "/basket", BasketController, only: [:show]
+    resources "/wishlist", WishlistController, only: [:show, :update]
+    resources "/basket", BasketController, only: [:show, :update]
     resources "/orders", OrderController, only: [:create]
   end
 end

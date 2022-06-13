@@ -3,6 +3,9 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
 
   import Online_StoreWeb.Router.Helpers
 
+  alias Online_Store.Accounts
+  alias Online_Store.Repo
+
   setup %{conn: conn} do
     user = insert(:user, %{password: "testPassword1"})
     conn = as_user(conn, user)
@@ -24,6 +27,7 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
              "access_token" => response["access_token"],
              "refresh_token" => response["refresh_token"],
              "user" => %{
+               "id" => response["user"]["id"],
                "birthday" => nil,
                "email" => nil,
                "name" => nil,
@@ -32,6 +36,25 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
                "surname" => nil
              }
            }
+
+    {:ok, user} = Accounts.get_user(response["user"]["id"])
+    user = Repo.preload(user, [:wishlist, :basket])
+
+    assert user.basket.user_id == response["user"]["id"]
+    assert user.wishlist.user_id == response["user"]["id"]
+  end
+
+  test "create/2 create user error", %{conn: conn} do
+    attrs = %{
+      "phone_number" => "89892983885"
+    }
+
+    response =
+      conn
+      |> post(user_path(conn, :create), attrs)
+      |> json_response(400)
+
+    assert response == "Bad Request"
   end
 
   test "update/2 update user", %{conn: conn, user: user} do
@@ -49,6 +72,7 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
              "user" => %{
                "birthday" => Date.to_string(user.birthday),
                "email" => user.email,
+               "id" => user.id,
                "name" => attrs["name"],
                "nickname" => user.nickname,
                "phone_number" => user.phone_number,

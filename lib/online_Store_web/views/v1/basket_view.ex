@@ -12,4 +12,8 @@ defmodule Online_StoreWeb.V1.BasketView do
       total_pages: page.total_pages
     }
   end
+
+  def render("update.json", %{sum_price: sum_price, count: count}) do
+    %{count: count, sum_price: sum_price}
+  end
 end

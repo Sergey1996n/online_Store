@@ -22,4 +22,18 @@ defmodule Online_StoreWeb.V1.WishlistController do
       render(conn, "index_product.json", %{page: page})
     end
   end
+
+  def update(conn, %{"current_user" => current_user} = params) do
+    with {:ok, wishlist} <- Wishlists.get_wishlist_user(current_user.id),
+         {:ok, product} <- Products.get_product(params["product_id"]) do
+      case Products.get_product_in_wishlist(wishlist.id, product.id) do
+        {:ok, _product} -> Wishlists.delete_product(wishlist, %{products: product})
+        {:error, :not_found} -> Wishlists.update_wishlist(wishlist, %{products: product})
+      end
+
+      page = Products.list_products_wishlist(wishlist.id)
+      count = length(page.entries)
+      render(conn, "update.json", %{count: count})
+    end
+  end
 end
