@@ -52,9 +52,13 @@ defmodule Online_StoreWeb.V1.UserControllerTest do
     response =
       conn
       |> post(user_path(conn, :create), attrs)
-      |> json_response(400)
+      |> json_response(422)
 
-    assert response == "Bad Request"
+    assert response == %{
+             "errors" => [
+               %{"code" => "can't be blank", "field" => "password"}
+             ]
+           }
   end
 
   test "update/2 update user", %{conn: conn, user: user} do

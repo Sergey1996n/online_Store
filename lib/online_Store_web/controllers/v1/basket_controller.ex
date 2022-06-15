@@ -5,6 +5,7 @@ defmodule Online_StoreWeb.V1.BasketController do
   alias Online_Store.Products
   alias Online_Store.Orders
   alias Online_StoreWeb.ApplyParams
+  alias Ecto.Changeset
 
   action_fallback(Online_StoreWeb.FallbackController)
 
@@ -21,7 +22,21 @@ defmodule Online_StoreWeb.V1.BasketController do
          {:ok, basket} <- Baskets.get_basket_user(current_user.id) do
       page = Products.list_products_basket(basket.id, params)
       render(conn, "index_product.json", %{page: page})
+    else
+      {:error, %Changeset{} = changeset} ->
+        with %Changeset{errors: errors} <- changeset,
+             params <- convert_errors(params, errors) do
+          {:ok, params} = ApplyParams.do_apply(ShowBasketParams, params)
+          {:ok, basket} = Baskets.get_basket_user(current_user.id)
+          page = Products.list_products_basket(basket.id, params)
+          render(conn, "index_product.json", %{page: page})
+        end
     end
+  end
+
+  defp convert_errors(params, errors) do
+    fields = Enum.map(errors, fn {field, _} -> to_string(field) end)
+    Map.drop(params, fields)
   end
 
   def update(conn, %{"current_user" => current_user} = params) do

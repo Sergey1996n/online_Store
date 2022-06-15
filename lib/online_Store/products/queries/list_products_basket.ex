@@ -3,41 +3,53 @@ defmodule Online_Store.Products.Queries.ListProductsBasket do
 
   alias Online_Store.{
     Repo,
-    Products.Entities.Product
+    Relations.BasketProduct
   }
 
   def process(basket_id, params) do
-    Product
+    BasketProduct
     |> by_basket(basket_id)
     |> sort(params)
     |> Repo.paginate(params)
   end
 
   defp by_basket(query, basket_id) do
-    from product in query,
-      join: baskets in assoc(product, :baskets),
-      where: baskets.id == ^basket_id,
-      preload: [baskets: baskets]
+    from basket_product in query,
+      where: basket_product.basket_id == ^basket_id
   end
 
   defp sort(query, %{order: order}) do
     case order do
       1 ->
-        from product in query,
-          order_by: [desc: :price]
+        from basket_product in query,
+          join: product in assoc(basket_product, :product),
+          select: product,
+          order_by: [asc: product.price]
 
       2 ->
-        from product in query,
-          order_by: [asc: :title]
+        from basket_product in query,
+          join: product in assoc(basket_product, :product),
+          select: product,
+          order_by: [asc: product.title]
 
       3 ->
-        from product in query,
+        from basket_product in query,
+          join: product in assoc(basket_product, :product),
+          select: product,
+          order_by: [desc: product.price]
+
+      _ ->
+        from basket_product in query,
+          join: product in assoc(basket_product, :product),
+          select: product,
           order_by: [desc: :inserted_at]
     end
   end
 
   defp sort(query, _) do
-    from product in query,
-      order_by: [asc: :price]
+    from basket_product in query,
+      join: product in assoc(basket_product, :product),
+      select: product,
+      order_by: [desc: :inserted_at]
   end
 end

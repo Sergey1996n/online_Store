@@ -6,7 +6,7 @@ defmodule Online_Store.Relations.WishlistProduct do
     Products.Entities.Product
   }
 
-  @primary_key false
+  # @primary_key false
   schema "wishlists_products" do
     belongs_to :wishlist, Wishlist
     belongs_to :product, Product

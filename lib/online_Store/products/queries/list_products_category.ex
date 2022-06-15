@@ -20,16 +20,16 @@ defmodule Online_Store.Products.Queries.ListProductsCategory do
   end
 
   defp sort(query, %{order: order}) do
-    case Integer.parse(order) do
-      {1, ""} ->
+    case order do
+      1 ->
         from product in query,
           order_by: [desc: :price]
 
-      {2, ""} ->
+      2 ->
         from product in query,
           order_by: [asc: :title]
 
-      {3, ""} ->
+      3 ->
         from product in query,
           order_by: [desc: :inserted_at]
 
@@ -46,31 +46,18 @@ defmodule Online_Store.Products.Queries.ListProductsCategory do
 
   # Filter price
   defp filter(query, %{from: from, to: to}) do
-    with {to, ""} <- Integer.parse(to),
-         {from, ""} <- Integer.parse(from) do
-      from product in query,
-        where: product.price >= ^from and product.price <= ^to
-    else
-      _ -> query
-    end
+    from product in query,
+      where: product.price >= ^from and product.price <= ^to
   end
 
   defp filter(query, %{from: from}) do
-    with {from, ""} <- Integer.parse(from) do
-      from product in query,
-        where: product.price >= ^from
-    else
-      _ -> query
-    end
+    from product in query,
+      where: product.price >= ^from
   end
 
   defp filter(query, %{to: to}) do
-    with {to, ""} <- Integer.parse(to) do
-      from product in query,
-        where: product.price <= ^to
-    else
-      _ -> query
-    end
+    from product in query,
+      where: product.price <= ^to
   end
 
   defp filter(query, _), do: query

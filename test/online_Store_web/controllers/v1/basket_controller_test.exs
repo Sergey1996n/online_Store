@@ -53,7 +53,6 @@ defmodule Online_StoreWeb.V1.BasketControllerTest do
            }
   end
 
-  @tag :kek
   test "update/2 update basket", %{conn: conn, basket: basket} do
     product = insert(:product)
 

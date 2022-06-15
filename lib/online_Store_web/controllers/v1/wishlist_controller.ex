@@ -4,6 +4,7 @@ defmodule Online_StoreWeb.V1.WishlistController do
   alias Online_Store.Wishlists
   alias Online_Store.Products
   alias Online_StoreWeb.ApplyParams
+  alias Ecto.Changeset
 
   action_fallback(Online_StoreWeb.FallbackController)
 
@@ -20,7 +21,21 @@ defmodule Online_StoreWeb.V1.WishlistController do
          {:ok, wishlist} <- Wishlists.get_wishlist_user(current_user.id) do
       page = Products.list_products_wishlist(wishlist.id, params)
       render(conn, "index_product.json", %{page: page})
+    else
+      {:error, %Changeset{} = changeset} ->
+        with %Changeset{errors: errors} <- changeset,
+             params <- convert_errors(params, errors) do
+          {:ok, params} = ApplyParams.do_apply(ShowWishlistParams, params)
+          {:ok, wishlist} = Wishlists.get_wishlist_user(current_user.id)
+          page = Products.list_products_wishlist(wishlist.id, params)
+          render(conn, "index_product.json", %{page: page})
+        end
     end
+  end
+
+  defp convert_errors(params, errors) do
+    fields = Enum.map(errors, fn {field, _} -> to_string(field) end)
+    Map.drop(params, fields)
   end
 
   def update(conn, %{"current_user" => current_user} = params) do

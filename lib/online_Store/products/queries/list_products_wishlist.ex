@@ -3,43 +3,53 @@ defmodule Online_Store.Products.Queries.ListProductsWishlist do
 
   alias Online_Store.{
     Repo,
-    Products.Entities.Product
+    Relations.WishlistProduct
   }
 
   def process(wishlist_id, params) do
-    Product
+    WishlistProduct
     |> by_wishlist(wishlist_id)
     |> sort(params)
     |> Repo.paginate(params)
   end
 
   defp by_wishlist(query, wishlist_id) do
-    from product in query,
-      join: wishlists in assoc(product, :wishlists),
-      where: wishlists.id == ^wishlist_id,
-      preload: [wishlists: wishlists]
+    from wishlist_product in query,
+      where: wishlist_product.wishlist_id == ^wishlist_id
   end
 
   defp sort(query, %{order: order}) do
     case order do
       1 ->
-        from product in query,
-          order_by: [desc: :price]
+        from wishlist_product in query,
+          join: product in assoc(wishlist_product, :product),
+          select: product,
+          order_by: [asc: product.price]
 
       2 ->
-        from product in query,
-          order_by: [asc: :title]
+        from wishlist_product in query,
+          join: product in assoc(wishlist_product, :product),
+          select: product,
+          order_by: [asc: product.title]
 
       3 ->
-        from product in query,
-          # order_by: [desc: :inserted_at]
-          order_by: [asc: :price]
+        from wishlist_product in query,
+          join: product in assoc(wishlist_product, :product),
+          select: product,
+          order_by: [desc: product.price]
+
+      _ ->
+        from wishlist_product in query,
+          join: product in assoc(wishlist_product, :product),
+          select: product,
+          order_by: [desc: :inserted_at]
     end
   end
 
   defp sort(query, _) do
-    from product in query,
-      # order_by: [asc: :price]
+    from wishlist_product in query,
+      join: product in assoc(wishlist_product, :product),
+      select: product,
       order_by: [desc: :inserted_at]
   end
 end

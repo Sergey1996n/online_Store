@@ -168,7 +168,7 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
 
     response =
       conn
-      |> get(category_path(conn, :show, category, %{order: "asd"}))
+      |> get(category_path(conn, :show, category, %{order: "asd", page: "asd"}))
       |> json_response(200)
 
     assert response ==
@@ -310,18 +310,6 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
              %{
                "entries" => [
                  %{
-                   "description" => product_1.description,
-                   "id" => product_1.id,
-                   "price" => product_1.price,
-                   "title" => product_1.title
-                 },
-                 %{
-                   "description" => product_2.description,
-                   "id" => product_2.id,
-                   "price" => product_2.price,
-                   "title" => product_2.title
-                 },
-                 %{
                    "description" => product_3.description,
                    "id" => product_3.id,
                    "price" => product_3.price,
@@ -342,7 +330,7 @@ defmodule Online_StoreWeb.V1.CategoryControllerTest do
                ],
                "page_number" => 1,
                "page_size" => 10,
-               "total_entries" => 5,
+               "total_entries" => 3,
                "total_pages" => 1
              }
   end

@@ -27,7 +27,7 @@ defmodule Online_Store.Products do
     to: GetProductInWishlist,
     as: :process
 
-    defdelegate get_product_in_basket(basket_id, product_id),
+  defdelegate get_product_in_basket(basket_id, product_id),
     to: GetProductInBasket,
     as: :process
 
